@@ -5,6 +5,8 @@
 //     { name: 'Sir Atif', age: 23, subject: 'Urdu' }
 // ];
 
+
+
 const students = [
   { name: "Ali", age: 15, class: "8th" },
   { name: "Taha", age: 19, class: "9th" },
@@ -13,27 +15,40 @@ const students = [
 
 function renderTable() {
   const table = document.getElementById("table");
-  const tableBody = document.createElement("tbody")
+  const tableBody = document.createElement("tbody");
   table.className = "table table-striped";
   const headerRow = document.createElement("tr");
   Object.keys(students[0]).forEach((key) => {
-      const headerCell = document.createElement("th");
-      headerCell.className = "text-center p-2";
-      headerCell.textContent = key;
-      headerRow.appendChild(headerCell);
+    const headerCell = document.createElement("th");
+    headerCell.className = "text-center p-2";
+    headerCell.textContent = key;
+    headerRow.appendChild(headerCell);
   });
   table.appendChild(headerRow);
+
   students.forEach((student) => {
-      const row = document.createElement("tr");
-      row.className = "text-center  ";
-      Object.keys(student).forEach((key) => {
-          const cell = document.createElement("td");
-          cell.className = "p-2  ";
-          cell.textContent = student[key];
-          row.appendChild(cell);
-          tableBody.appendChild(row)
-      });
-      table.appendChild(tableBody);
+    const row = document.createElement("tr");
+    row.className = "text-center";
+    Object.keys(student).forEach((key) => {
+      const cell = document.createElement("td");
+      cell.className = "p-2";
+      cell.textContent = student[key];
+      row.appendChild(cell);
+    });
+
+    const deleteCell = document.createElement("td");
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-secondary btn-sm"
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", () => {
+      tableBody.removeChild(row);
+    });
+    deleteCell.appendChild(deleteButton);
+    row.appendChild(deleteCell);
+
+    tableBody.appendChild(row);
   });
+
+  table.appendChild(tableBody);
 }
-renderTable();
+renderTable()
